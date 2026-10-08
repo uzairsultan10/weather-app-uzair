@@ -4,8 +4,11 @@ import { getWeatherIcon } from "./lib/weatherIcons";
 import { getWeatherDescription } from "./lib/weatherDescriptions";
 import { isNightTime } from "./lib/utils";
 import { LocationCard } from "./components/LocationCard";
+import { connection } from "next/server";
 
 export default async function Home() {
+  await connection();
+
   const weatherData = await Promise.all(
     locations.map(async (location) => {
       const weather = await getWeather(location.lat, location.lon);

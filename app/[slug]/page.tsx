@@ -4,6 +4,7 @@ import { getWeather } from "../actions/actions";
 import { getWeatherIcon } from "../lib/weatherIcons";
 import { getWeatherDescription } from "../lib/weatherDescriptions";
 import { getWeatherBackground } from "../lib/weatherBackgrounds";
+import { connection } from "next/server";
 
 import {
   getCurrentTimeInTimezone,
@@ -30,6 +31,8 @@ export default async function LocationPage({ params }: PageProps) {
   if (!location) {
     notFound();
   }
+
+  await connection();
 
   const weather = await getWeather(location.lat, location.lon);
   const todayForecast = weather.daily[0];
