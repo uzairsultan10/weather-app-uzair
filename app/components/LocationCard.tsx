@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCurrentTimeInTimezone } from "../lib/utils";
 import { getWeatherBackground } from "../lib/weatherBackgrounds";
 import { WeatherIcon } from "../lib/types";
+import { TemperatureValue } from "./TemperatureValue";
 
 interface LocationCardProps {
   slug: string;
@@ -40,7 +41,7 @@ export function LocationCard({
             </div>
             <div className="flex gap-6 items-center">
             <span className="text-4xl font-light text-shadow-md">
-                {temperature}°
+                <TemperatureValue celsius={temperature} />
             </span>
             <Icon
                 className="size-12 [--animation-duration:0] group-hover:[--animation-duration:4s]"

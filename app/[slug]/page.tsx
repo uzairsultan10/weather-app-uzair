@@ -6,6 +6,7 @@ import { getWeatherDescription } from "../lib/weatherDescriptions";
 import { getWeatherBackground } from "../lib/weatherBackgrounds";
 import { connection } from "next/server";
 
+
 import {
   getCurrentTimeInTimezone,
   formatDate,
@@ -13,6 +14,9 @@ import {
   isNightTime,
 } from "../lib/utils";
 import { DaysListItem } from "../components/DaysListItem";
+import { WeatherHighlight } from "../components/WeatherHighlight";
+import { TemperatureToggle } from "../components/TemperatureToggle";
+import { TemperatureValue } from "../components/TemperatureValue";
 
 export function generateStaticParams() {
   return locations.map((location) => ({
@@ -58,6 +62,10 @@ export default async function LocationPage({ params }: PageProps) {
         {getCurrentTimeInTimezone(weather.current.timezone)}
     </p>
     </section>
+
+    <div className="mt-4 flex justify-end">
+      <TemperatureToggle />
+    </div>
     
     <div className="flex flex-col gap-16 py-8">
       <header className="flex flex-col gap-8">
@@ -72,7 +80,7 @@ export default async function LocationPage({ params }: PageProps) {
         <section className="flex justify-between items-center">
             <div className="flex flex-col gap-2">
                 <span className="text-6xl font-light text-shadow-lg">
-                {weather.current.temperature}°
+                  <TemperatureValue celsius={weather.current.temperature} />
                 </span>
                 <p className="text-base text-muted-foreground text-shadow-sm">
                 {description}
@@ -101,6 +109,13 @@ export default async function LocationPage({ params }: PageProps) {
           })}
         </ul>
       </section>
+
+      <WeatherHighlight
+        locationName={location.name}
+        timeZone={weather.current.timezone}
+        sunrise={weather.current.sunrise}
+        sunset={weather.current.sunset}
+      />
     </div>
 </div>
 </div>

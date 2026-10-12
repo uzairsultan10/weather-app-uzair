@@ -1,4 +1,5 @@
 import { WeatherIcon } from "../lib/types";
+import { TemperatureValue } from "./TemperatureValue";
 
 interface DaysListItemProps {
   day: string;
@@ -18,8 +19,8 @@ export function DaysListItem({
         <h3 className="text-base font-medium text-shadow-sm">{day}</h3>
         <Icon className="size-8 ml-auto" />
         <div className="flex gap-4 w-16 justify-end text-base font-normal">
-            <span>{maxTemp}°</span>
-      <span className="text-muted-foreground text-shadow-sm">{minTemp}°</span>
+            <TemperatureValue celsius={maxTemp} />
+      <TemperatureValue celsius={minTemp} className="text-muted-foreground text-shadow-sm" />
       </div>
     </li>
   );
